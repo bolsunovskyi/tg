@@ -46,3 +46,26 @@ func (c Client) SendMessage(chatID int, text string) error {
 
 	return nil
 }
+
+func (c Client) SendPhotoUrl(chatID int, imageURL string) error {
+	sendRequest := url.Values{
+		"photo":    {imageURL},
+		"chat_id": {strconv.Itoa(chatID)},
+	}
+
+	rq, _ := http.NewRequest("POST", fmt.Sprintf("%s%s/%s", baseURL, c.token, "sendPhoto"),
+		strings.NewReader(sendRequest.Encode()))
+	rq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	rsp, err := c.httpClient.Do(rq)
+	if err != nil {
+		return err
+	}
+
+	if rsp.StatusCode != http.StatusOK {
+		bts, _ := ioutil.ReadAll(rsp.Body)
+		return errors.New(string(bts))
+	}
+
+	return nil
+}
