@@ -1,9 +1,18 @@
 package tg
 
 type Update struct {
-	UpdateID int     `json:"update_id"`
-	Message  Message `json:"message"`
-	//EditedMessage Message `json:"edited_message"`
+	UpdateID       int           `json:"update_id"`
+	Message        Message       `json:"message"`
+	ReplyToMessage Message       `json:"reply_to_message"`
+	CallBackQuery  CallBackQuery `json:"callback_query"`
+}
+
+type CallBackQuery struct {
+	ID           string  `json:"id"`
+	Message      Message `json:"message"`
+	From         User    `json:"from"`
+	ChatInstance string  `json:"chat_instance"`
+	Data         string  `json:"data"`
 }
 
 type Message struct {
@@ -13,8 +22,6 @@ type Message struct {
 	Caption   string `json:"caption"`
 	From      User   `json:"from" validate:"required"`
 	Chat      Chat   `json:"chat" validate:"required"`
-	//ForwardFrom       User   `json:"forward_from"`
-	//ForwardedFromChat Chat   `json:"forwarded_from_chat"`
 }
 
 type User struct {
@@ -37,4 +44,32 @@ type Chat struct {
 type SendMessageRequest struct {
 	ChatID int
 	Text   string
+}
+
+const (
+	ActionTyping          = "typing"
+	ActionUploadPhoto     = "upload_photo"
+	ActionRecordVideo     = "record_video"
+	ActionUploadVideo     = "upload_video"
+	ActionRecordAudio     = "record_audio"
+	ActionUploadAudio     = "upload_audio"
+	ActionUploadDocument  = "upload_document"
+	ActionFindLocation    = "find_location"
+	ActionRecordVideoNote = "record_video_note"
+	ActionUploadVideoNote = "upload_video_note"
+)
+
+type ImageInlineRequest struct {
+	ChatID      int                  `json:"chat_id"`
+	Photo       string               `json:"photo"`
+	ReplyMarkup InlineKeyboardMarkup `json:"reply_markup"`
+}
+
+type InlineKeyboardMarkup struct {
+	InlineKeyboard [][]InlineKeyboardButton `json:"inline_keyboard"`
+}
+
+type InlineKeyboardButton struct {
+	Text         string `json:"text"`
+	CallbackData string `json:"callback_data"`
 }
