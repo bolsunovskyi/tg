@@ -30,7 +30,7 @@ func TestClient_SendMessage(t *testing.T) {
 
 func TestClient_SendPhotoUrlInlineKeyboard(t *testing.T) {
 	cl := MakeClient(os.Getenv("tg_token"), http.DefaultClient)
-	if err := cl.SendPhotoUrlInlineKeyboard(148901293, &ImageInlineRequest{
+	rsp, err := cl.SendPhotoUrlInlineKeyboard(&ImageInlineRequest{
 		ChatID: chatID,
 		Photo:  "https://d1.awsstatic.com/Digital%20Marketing/sitemerch/sign-in/en/Site-Merch_PAC_Backup-Restore_Sign-in_EN.7e859982944e5753420a056f5aefc1b14c07f39e.png",
 		ReplyMarkup: InlineKeyboardMarkup{
@@ -47,9 +47,13 @@ func TestClient_SendPhotoUrlInlineKeyboard(t *testing.T) {
 				},
 			},
 		},
-	}); err != nil {
+	})
+
+	if err != nil {
 		t.Fatal(err)
 	}
+
+	t.Log(rsp)
 }
 
 func TestClient_SendMessageFail(t *testing.T) {

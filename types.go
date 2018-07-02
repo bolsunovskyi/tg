@@ -46,6 +46,22 @@ type SendMessageRequest struct {
 	Text   string
 }
 
+type Photo struct {
+	FileID   string `json:"file_id"`
+	FileSize int    `json:"file_size"`
+	Width    int    `json:"width"`
+	Height   int    `json:"height"`
+}
+
+type PhotoResponse struct {
+	OK     bool        `json:"ok"`
+	Result PhotoResult `json:"result"`
+}
+
+type PhotoResult struct {
+	Photo []Photo `json:"photo"`
+}
+
 const (
 	ActionTyping          = "typing"
 	ActionUploadPhoto     = "upload_photo"
