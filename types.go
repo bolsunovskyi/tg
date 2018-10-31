@@ -82,9 +82,10 @@ const (
 )
 
 type ImageInlineRequest struct {
-	ChatID      int                  `json:"chat_id"`
-	Photo       string               `json:"photo"`
-	ReplyMarkup InlineKeyboardMarkup `json:"reply_markup"`
+	ChatID              int                  `json:"chat_id"`
+	Photo               string               `json:"photo"`
+	DisableNotification bool                 `json:"disable_notification"`
+	ReplyMarkup         InlineKeyboardMarkup `json:"reply_markup"`
 }
 
 type InlineKeyboardMarkup struct {
