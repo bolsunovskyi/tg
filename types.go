@@ -46,6 +46,12 @@ type SendMessageRequest struct {
 	Text   string
 }
 
+type SendMessageMarkupRequest struct {
+	ChatID      int         `json:"chat_id"`
+	Text        string      `json:"text"`
+	ReplyMarkup interface{} `json:"reply_markup"`
+}
+
 type Photo struct {
 	FileID   string `json:"file_id"`
 	FileSize int    `json:"file_size"`
@@ -85,7 +91,20 @@ type InlineKeyboardMarkup struct {
 	InlineKeyboard [][]InlineKeyboardButton `json:"inline_keyboard"`
 }
 
+type ReplyKeyboardMarkup struct {
+	Keyboard        [][]KeyboardButton `json:"keyboard"`
+	ResizeKeyboard  bool               `json:"resize_keyboard"`
+	OneTimeKeyboard bool               `json:"one_time_keyboard"`
+	Selective       bool               `json:"selective"`
+}
+
 type InlineKeyboardButton struct {
 	Text         string `json:"text"`
 	CallbackData string `json:"callback_data"`
+}
+
+type KeyboardButton struct {
+	Text            string `json:"text"`
+	RequestContact  bool   `json:"request_contact"`
+	RequestLocation bool   `json:"request_location"`
 }

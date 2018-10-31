@@ -33,6 +33,16 @@ func (c Client) SendMessage(chatID int, text string) error {
 	})
 }
 
+func (c Client) SendMessageWithMarkup(chatID int, text string, markup interface{}) error {
+	_, err := c.sendRequestJSON("sendMessage", SendMessageMarkupRequest{
+		ChatID: chatID,
+		Text: text,
+		ReplyMarkup: markup,
+	})
+
+	return err
+}
+
 func (c Client) SendPhotoUrlInlineKeyboard(rq *ImageInlineRequest) (*Photo, error) {
 	rsp, err := c.sendRequestJSON("sendPhoto", rq)
 	if err != nil {
