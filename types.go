@@ -86,6 +86,7 @@ type ImageInlineRequest struct {
 	Photo               string               `json:"photo"`
 	DisableNotification bool                 `json:"disable_notification"`
 	ReplyMarkup         InlineKeyboardMarkup `json:"reply_markup"`
+	Caption             string               `json:"caption"`
 }
 
 type InlineKeyboardMarkup struct {
@@ -108,4 +109,10 @@ type KeyboardButton struct {
 	Text            string `json:"text"`
 	RequestContact  bool   `json:"request_contact"`
 	RequestLocation bool   `json:"request_location"`
+}
+
+type EditMessageCaptionRequest struct {
+	ChatID    int    `json:"chat_id"`
+	MessageID int    `json:"message_id"`
+	Caption   string `json:"caption"`
 }

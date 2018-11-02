@@ -74,6 +74,11 @@ func (c Client) EditMessageInlineKeyboard(chatID, messageID int, rq *InlineKeybo
 	return err
 }
 
+func (c Client) EditMessageCaption(rq *EditMessageCaptionRequest) error {
+	_, err := c.sendRequestJSON("editMessageCaption", rq)
+	return err
+}
+
 func (c Client) SendPhotoUrl(chatID int, imageURL string) error {
 	return c.sendRequest("sendPhoto", map[string]string{
 		"photo":   imageURL,
