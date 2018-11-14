@@ -50,6 +50,7 @@ type SendMessageMarkupRequest struct {
 	ChatID      int         `json:"chat_id"`
 	Text        string      `json:"text"`
 	ReplyMarkup interface{} `json:"reply_markup"`
+	ParseMode   string      `json:"parse_mode"`
 }
 
 type Photo struct {
@@ -87,6 +88,7 @@ type ImageInlineRequest struct {
 	DisableNotification bool                 `json:"disable_notification"`
 	ReplyMarkup         InlineKeyboardMarkup `json:"reply_markup"`
 	Caption             string               `json:"caption"`
+	ParseMode           string               `json:"parse_mode"`
 }
 
 type InlineKeyboardMarkup struct {
@@ -115,4 +117,5 @@ type EditMessageCaptionRequest struct {
 	ChatID    int    `json:"chat_id"`
 	MessageID int    `json:"message_id"`
 	Caption   string `json:"caption"`
+	ParseMode string `json:"parse_mode"`
 }
