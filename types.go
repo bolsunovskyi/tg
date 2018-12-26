@@ -1,7 +1,7 @@
 package tg
 
 type Update struct {
-	UpdateID       int           `json:"update_id"`
+	UpdateID       int64         `json:"update_id"`
 	Message        Message       `json:"message"`
 	ReplyToMessage Message       `json:"reply_to_message"`
 	CallBackQuery  CallBackQuery `json:"callback_query"`
@@ -16,8 +16,8 @@ type CallBackQuery struct {
 }
 
 type Message struct {
-	MessageID int    `json:"message_id"`
-	Date      int    `json:"date"`
+	MessageID int64  `json:"message_id"`
+	Date      int64  `json:"date"`
 	Text      string `json:"text" validate:"required"`
 	Caption   string `json:"caption"`
 	From      User   `json:"from" validate:"required"`
@@ -25,7 +25,7 @@ type Message struct {
 }
 
 type User struct {
-	ID           int    `json:"id" validate:"required"`
+	ID           int64  `json:"id" validate:"required"`
 	IsBot        bool   `json:"is_bit"`
 	FirstName    string `json:"first_name"`
 	LastName     string `json:"last_name"`
@@ -34,7 +34,7 @@ type User struct {
 }
 
 type Chat struct {
-	ID          int    `json:"id" validate:"required"`
+	ID          int64  `json:"id" validate:"required"`
 	Type        string `json:"type"`
 	Title       string `json:"title"`
 	Username    string `json:"username"`
@@ -42,12 +42,12 @@ type Chat struct {
 }
 
 type SendMessageRequest struct {
-	ChatID int
+	ChatID int64
 	Text   string
 }
 
 type SendMessageMarkupRequest struct {
-	ChatID      int         `json:"chat_id"`
+	ChatID      int64       `json:"chat_id"`
 	Text        string      `json:"text"`
 	ReplyMarkup interface{} `json:"reply_markup"`
 	ParseMode   string      `json:"parse_mode"`
@@ -55,9 +55,9 @@ type SendMessageMarkupRequest struct {
 
 type Photo struct {
 	FileID   string `json:"file_id"`
-	FileSize int    `json:"file_size"`
-	Width    int    `json:"width"`
-	Height   int    `json:"height"`
+	FileSize int64  `json:"file_size"`
+	Width    int64  `json:"width"`
+	Height   int64  `json:"height"`
 }
 
 type PhotoResponse struct {
@@ -83,7 +83,7 @@ const (
 )
 
 type ImageInlineRequest struct {
-	ChatID              int                  `json:"chat_id"`
+	ChatID              int64                `json:"chat_id"`
 	Photo               string               `json:"photo"`
 	DisableNotification bool                 `json:"disable_notification"`
 	ReplyMarkup         InlineKeyboardMarkup `json:"reply_markup"`
@@ -114,8 +114,8 @@ type KeyboardButton struct {
 }
 
 type EditMessageCaptionRequest struct {
-	ChatID    int    `json:"chat_id"`
-	MessageID int    `json:"message_id"`
+	ChatID    int64  `json:"chat_id"`
+	MessageID int64  `json:"message_id"`
 	Caption   string `json:"caption"`
 	ParseMode string `json:"parse_mode"`
 }
