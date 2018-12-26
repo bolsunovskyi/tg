@@ -16,12 +16,14 @@ type CallBackQuery struct {
 }
 
 type Message struct {
-	MessageID int64  `json:"message_id"`
-	Date      int64  `json:"date"`
-	Text      string `json:"text" validate:"required"`
-	Caption   string `json:"caption"`
-	From      User   `json:"from" validate:"required"`
-	Chat      Chat   `json:"chat" validate:"required"`
+	MessageID            int64  `json:"message_id"`
+	Date                 int64  `json:"date"`
+	Text                 string `json:"text" validate:"required"`
+	Caption              string `json:"caption"`
+	From                 User   `json:"from" validate:"required"`
+	Chat                 Chat   `json:"chat" validate:"required"`
+	ForwardFromChat      Chat   `json:"forward_from_chat"`
+	ForwardFromMessageID int64  `json:"forward_from_message_id"`
 }
 
 type User struct {
@@ -39,6 +41,8 @@ type Chat struct {
 	Title       string `json:"title"`
 	Username    string `json:"username"`
 	Description string `json:"description"`
+	FirstName   string `json:"first_name"`
+	LastName    string `json:"last_name"`
 }
 
 type SendMessageRequest struct {

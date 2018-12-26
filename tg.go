@@ -26,14 +26,14 @@ func MakeClient(token string, client *http.Client) Client {
 	}
 }
 
-func (c Client) SendMessage(chatID int, text string) error {
+func (c Client) SendMessage(chatID int64, text string) error {
 	return c.sendRequest("sendMessage", map[string]string{
 		"text":    text,
-		"chat_id": strconv.Itoa(chatID),
+		"chat_id": strconv.FormatInt(chatID, 10),
 	})
 }
 
-func (c Client) SendMessageWithMarkup(chatID int, text string, markup interface{}) error {
+func (c Client) SendMessageWithMarkup(chatID int64, text string, markup interface{}) error {
 	_, err := c.sendRequestJSON("sendMessage", SendMessageMarkupRequest{
 		ChatID:      chatID,
 		Text:        text,
@@ -64,7 +64,7 @@ func (c Client) SendPhotoUrlInlineKeyboard(rq *ImageInlineRequest) (*Photo, erro
 	return &big, nil
 }
 
-func (c Client) EditMessageInlineKeyboard(chatID, messageID int, rq *InlineKeyboardMarkup) error {
+func (c Client) EditMessageInlineKeyboard(chatID, messageID int64, rq *InlineKeyboardMarkup) error {
 	_, err := c.sendRequestJSON("editMessageReplyMarkup", map[string]interface{}{
 		"chat_id":      chatID,
 		"message_id":   messageID,
@@ -79,10 +79,10 @@ func (c Client) EditMessageCaption(rq *EditMessageCaptionRequest) error {
 	return err
 }
 
-func (c Client) SendPhotoUrl(chatID int, imageURL string) error {
+func (c Client) SendPhotoUrl(chatID int64, imageURL string) error {
 	return c.sendRequest("sendPhoto", map[string]string{
 		"photo":   imageURL,
-		"chat_id": strconv.Itoa(chatID),
+		"chat_id": strconv.FormatInt(chatID, 10),
 	})
 }
 
@@ -139,9 +139,20 @@ func (c Client) sendRequest(method string, values map[string]string) error {
 	return nil
 }
 
-func (c Client) ChatAction(chatID int, action string) error {
+func (c Client) ChatAction(chatID int64, action string) error {
 	return c.sendRequest("sendChatAction", map[string]string{
 		"action":  action,
-		"chat_id": strconv.Itoa(chatID),
+		"chat_id": strconv.FormatInt(chatID, 10),
 	})
+}
+
+func (c Client) ForwardMessage(chatID int64, fromChatID int64, disableNotification bool, messageID int64) error {
+	_, err := c.sendRequestJSON("forwardMessage", map[string]interface{}{
+		"chat_id": chatID,
+		"from_chat_id": fromChatID,
+		"disable_notification": disableNotification,
+		"message_id": messageID,
+	})
+
+	return err
 }
